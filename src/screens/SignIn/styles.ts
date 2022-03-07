@@ -1,22 +1,32 @@
 import styled from 'styled-components';
-import { Image, Text, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { theme } from '../../global/styles/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const StyledContainer = styled(SafeAreaView)`
-  flex: 1;
-  padding: 24px;
   background-color: ${theme.colors.background};
+  flex: 1;
+`;
+export const StyledScrollView = styled(ScrollView)`
+  background-color: ${theme.colors.background};
+  flex: 1;
+  padding: 0 24px;
+`;
+
+export const TopContainer = styled(View)`
+  align-items: center;
 `;
 
 export const InnerContainer = styled(View)`
   width: 100%;
   align-items: center;
+  flex: 1;
+  padding-bottom: 24px;
 `;
 
 export const PageLogo = styled(Image)`
-  width: 250px;
-  height: 200px;
+  max-width: 100%;
+  max-height: 200px;
 `;
 
 export const PageTitle = styled(Text)`
@@ -49,4 +59,29 @@ export const Line = styled(View)`
   width: 100%;
   background-color: ${theme.colors.darkLight};
   margin: 8px 0 8px 0;
+`;
+
+export const SignUpView = styled(View)`
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+`;
+
+export const SignUpText = styled(Text)`
+  justify-content: center;
+  align-content: center;
+  color: ${theme.colors.tertiary};
+  font-size: 15px;
+`;
+
+export const TextLink = styled(TouchableOpacity)`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextLinkContent = styled(Text)`
+  color: ${theme.colors.brand};
+  font-size: 15px;
 `;

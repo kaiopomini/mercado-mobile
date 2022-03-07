@@ -1,7 +1,6 @@
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components';
-import { View } from 'react-native';
 
-export const BaseView = styled(View)`
+export const BaseView = styled(SafeAreaView)`
   flex: 1;
-  padding: '16px';
 `;

@@ -13,7 +13,7 @@ export function Routes() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {false ? <AuthRoutes /> : <LoginRoutes />}
+        {true ? <AuthRoutes /> : <LoginRoutes />}
       </NavigationContainer>
     </SafeAreaProvider>
   );

@@ -8,7 +8,7 @@ import {
   RightIcon,
   StyledInputHelperText,
   StyledInputLabel,
-  StyledTextInput,
+  StyledMaskedTextInput,
 } from './styles';
 
 interface Props extends TextInputProps {
@@ -23,7 +23,42 @@ import FAIcons from 'react-native-vector-icons/FontAwesome';
 import Ionicicons from 'react-native-vector-icons/Ionicons';
 import { theme } from '../../../global/styles/theme';
 
-export const CustomInputDefault = ({
+const PHONE_MASK = [
+  '(',
+  /\d/,
+  /\d/,
+  ')',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
+
+const TELEPHONE_MASK = [
+  '(',
+  /\d/,
+  /\d/,
+  ')',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
+
+export const CustomInputMasked = ({
   control,
   name,
   isPassword,
@@ -32,9 +67,11 @@ export const CustomInputDefault = ({
   ...rest
 }: Props) => {
   const [hidePassword, setHidePassword] = useState(true);
+  // const [maskedValue, setMaskedValue] = useState('');
   const handleShowPassword = () => {
     setHidePassword(!hidePassword);
   };
+
   return (
     <Controller
       control={control}
@@ -55,13 +92,22 @@ export const CustomInputDefault = ({
           )}
           {label && <StyledInputLabel>{label}</StyledInputLabel>}
 
-          <StyledTextInput
+          <StyledMaskedTextInput
             value={value}
-            onChangeText={onChange}
+            onChangeText={(masked, unmasked) => {
+              onChange(unmasked);
+            }}
+            mask={text => {
+              if (text && text.replace(/\D+/g, '')?.length === 10) {
+                return TELEPHONE_MASK;
+              } else {
+                return PHONE_MASK;
+              }
+            }}
             onBlur={onBlur}
-            secureTextEntry={isPassword && hidePassword}
             {...rest}
           />
+
           {isPassword && (
             <RightIcon onPress={handleShowPassword} activeOpacity={0.7}>
               <Ionicicons

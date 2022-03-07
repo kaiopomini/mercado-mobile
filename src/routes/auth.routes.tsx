@@ -8,10 +8,15 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 export function AuthRoutes() {
   return (
-    <Navigator>
-      <Screen name="Home" component={Home} />
-      <Screen name="Products" component={Producs} />
-      <Screen name="Home2" component={Home} />
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName={'Home'}>
+      <Screen name={'Home'} component={Home} />
+      <Screen name={'Shop'} component={Producs} />
+      <Screen name={'Favorites'} component={Home} />
+      <Screen name={'Cart'} component={Home} />
     </Navigator>
   );
 }

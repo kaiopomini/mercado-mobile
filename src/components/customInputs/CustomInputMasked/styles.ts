@@ -1,12 +1,24 @@
 import styled from 'styled-components';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { theme } from '../../../global/styles/theme';
+import MaskInput from 'react-native-mask-input';
 
 interface ITypeProps {
   error: boolean;
 }
 
 export const StyledTextInput = styled(TextInput)`
+  background-color: ${theme.colors.secondary};
+  padding: 16px;
+  padding-left: 52px;
+  padding-right: 52px;
+  border-radius: 8px;
+  font-size: 16px;
+  height: 52px;
+  color: ${theme.colors.tertiary};
+`;
+
+export const StyledMaskedTextInput = styled(MaskInput)`
   background-color: ${theme.colors.secondary};
   padding: 16px;
   padding-left: 52px;

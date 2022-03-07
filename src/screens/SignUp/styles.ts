@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Image, Text, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { theme } from '../../global/styles/theme';
 
-export const BaseViewContainer = styled(SafeAreaView)`
+export const StyledContainer = styled(SafeAreaView)`
+  background-color: ${theme.colors.background};
   flex: 1;
-  padding: 24px;
+`;
+
+export const StyledScrollView = styled(ScrollView)`
+  flex: 1;
+  padding: 0 24px;
   background-color: ${theme.colors.background};
 `;
 
 export const InnerContainer = styled(View)`
-  flex: 1;
   width: 100%;
   align-items: center;
-`;
-
-export const PageLogo = styled(Image)`
-  width: 250px;
-  height: 200px;
+  padding-bottom: 24px;
 `;
 
 export const PageTitle = styled(Text)`
@@ -37,7 +37,7 @@ export const SubTitle = styled(Text)`
 `;
 
 export const StyledFormArea = styled(View)`
-  width: 90%;
+  width: 100%;
 `;
 
 export const MsgBox = styled(Text)`
@@ -50,4 +50,28 @@ export const Line = styled(View)`
   width: 100%;
   background-color: ${theme.colors.darkLight};
   margin: 8px 0 8px 0;
+`;
+
+export const SignInView = styled(View)`
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const SignInText = styled(Text)`
+  justify-content: center;
+  align-content: center;
+  color: ${theme.colors.tertiary};
+  font-size: 15px;
+`;
+
+export const TextLink = styled(TouchableOpacity)`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextLinkContent = styled(Text)`
+  color: ${theme.colors.brand};
+  font-size: 15px;
 `;

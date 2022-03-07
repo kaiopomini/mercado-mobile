@@ -4,13 +4,17 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
-  BaseViewContainer,
   InnerContainer,
-  Line,
   MsgBox,
   PageTitle,
   StyledFormArea,
   SubTitle,
+  StyledContainer,
+  StyledScrollView,
+  SignInView,
+  SignInText,
+  TextLink,
+  TextLinkContent,
 } from './styles';
 
 import { CustomInputDefault } from '../../components/customInputs/CustomInputDefault';
@@ -18,6 +22,7 @@ import { CustomInputDefault } from '../../components/customInputs/CustomInputDef
 import { theme } from '../../global/styles/theme';
 import { LoginScrenButton } from '../../components/customButtons/LoginScreenButton';
 import { useNavigation } from '@react-navigation/native';
+import { CustomInputMasked } from '../../components/customInputs/CustomInputMasked';
 
 export const SignUp = () => {
   const navigation = useNavigation();
@@ -44,35 +49,13 @@ export const SignUp = () => {
         'A senha deve ter pelomenos 1 caractere especial',
       )
       .min(8, 'A senha deve ter pelomenos 8 caracteres'),
-    cpf: Yup.string()
-      .default(null)
-      .notRequired()
-      .nullable()
-      .test('is-cpf', 'CFP inválido', value => {
-        if (value) {
-          return validadeCPF(value);
-        }
-        return true;
-      }),
-    birthDate: Yup.date()
-      .notRequired()
-      .nullable()
-      .typeError('Data inválida')
-      .min(new Date(1900, 0, 1), 'Data inválida')
-      .max(new Date(), 'Data inválida'),
-    avatar: Yup.string().nullable(),
-    phones: Yup.array().of(
-      Yup.object().shape({
-        phone_number: Yup.string().required('Telefone/Whatsapp é obrigatório'),
-      }),
-    ),
-    address: Yup.object({
-      name: Yup.string().required('Endereço é obrigatório'),
-      number: Yup.string().notRequired(),
-      zip_code: Yup.string().required('CEP é obrigatório'),
-      city: Yup.string().required('Cidade é obrigatório'),
-      federative_unity: Yup.string().required('Estado é obrigatório'),
-    }).required('required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'As senhas devem ser iguais')
+      .required('Confirmar senha é obrigatório'),
+    phone: Yup.string()
+      .required('Telefone/Whatsapp é obrigatório')
+      .min(10, 'Telefone inválido')
+      .max(11, 'Telefona inválido'),
   });
 
   const { control, handleSubmit } = useForm({
@@ -95,85 +78,90 @@ export const SignUp = () => {
     console.log(data);
   };
 
-  const onSignUpPress = () => {
-    navigation.navigate('SignUp');
+  const handleBack = () => {
+    navigation.goBack();
   };
 
   return (
-    <BaseViewContainer>
-      <InnerContainer>
-        <PageTitle>Mercado Campos</PageTitle>
-        <SubTitle>Cadastro</SubTitle>
+    <StyledContainer>
+      <StyledScrollView>
+        <InnerContainer>
+          <PageTitle>Mercado Campos</PageTitle>
+          <SubTitle>Cadastro</SubTitle>
 
-        <StyledFormArea>
-          <CustomInputDefault
-            control={control}
-            name={'name'}
-            placeholder={'exemplo@exemplo.com'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'user'}
-            label={'Nome'}
-            textContentType={'name'}
-          />
-          <CustomInputDefault
-            control={control}
-            name={'surname'}
-            placeholder={'exemplo@exemplo.com'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'user'}
-            label={'Sobrenome'}
-            textContentType={'familyName'}
-          />
-          <CustomInputDefault
-            control={control}
-            name={'surname'}
-            placeholder={'exemplo@exemplo.com'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'user'}
-            label={'Sobrenome'}
-            textContentType={'telephoneNumber'}
-            keyboardType={'number-pad'}
-          />
-          <CustomInputDefault
-            control={control}
-            name={'email'}
-            placeholder={'exemplo@exemplo.com'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'user'}
-            label={'Email *'}
-            textContentType={'emailAddress'}
-            keyboardType={'email-address'}
-          />
-          <CustomInputDefault
-            control={control}
-            name={'password'}
-            placeholder={'********'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'lock'}
-            label={'Senha *'}
-            autoCapitalize={'none'}
-            isPassword
-          />
-          <CustomInputDefault
-            control={control}
-            name={'password'}
-            placeholder={'********'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'lock'}
-            label={'Senha *'}
-            autoCapitalize={'none'}
-            isPassword
-          />
-          <MsgBox>...</MsgBox>
-          <LoginScrenButton onPress={() => handleSubmit(onSignInPressed)}>
-            Entrar
-          </LoginScrenButton>
-          <Line />
-          <LoginScrenButton onPress={onSignUpPress}>
-            Criar conta
-          </LoginScrenButton>
-        </StyledFormArea>
-      </InnerContainer>
-    </BaseViewContainer>
+          <StyledFormArea>
+            <CustomInputDefault
+              control={control}
+              name={'name'}
+              placeholder={'João'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'user'}
+              label={'Nome'}
+              textContentType={'name'}
+            />
+            <CustomInputDefault
+              control={control}
+              name={'surname'}
+              placeholder={'Silva'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'user'}
+              label={'Sobrenome'}
+              textContentType={'familyName'}
+            />
+            <CustomInputMasked
+              control={control}
+              name={'phone'}
+              placeholder={'(44) 99999-9999'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'phone'}
+              label={'Telefone/Celular'}
+              textContentType={'telephoneNumber'}
+              keyboardType={'number-pad'}
+            />
+            <CustomInputDefault
+              control={control}
+              name={'email'}
+              placeholder={'exemplo@exemplo.com'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'at'}
+              label={'Email'}
+              autoCapitalize={'none'}
+              textContentType={'emailAddress'}
+              keyboardType={'email-address'}
+            />
+            <CustomInputDefault
+              control={control}
+              name={'password'}
+              placeholder={'********'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'lock'}
+              label={'Senha'}
+              autoCapitalize={'none'}
+              isPassword
+            />
+            <CustomInputDefault
+              control={control}
+              name={'confirmPassword'}
+              placeholder={'********'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'lock'}
+              label={'Confimar senha'}
+              autoCapitalize={'none'}
+              isPassword
+            />
+            <MsgBox>...</MsgBox>
+            <LoginScrenButton onPress={handleSubmit(onSignInPressed)}>
+              Cadastrar
+            </LoginScrenButton>
+            <SignInView>
+              <SignInText>Já tem conta? </SignInText>
+              <TextLink onPress={handleBack} activeOpacity={0.7}>
+                <TextLinkContent>Clique aqui pra entrar!</TextLinkContent>
+              </TextLink>
+            </SignInView>
+          </StyledFormArea>
+        </InnerContainer>
+      </StyledScrollView>
+    </StyledContainer>
   );
 };

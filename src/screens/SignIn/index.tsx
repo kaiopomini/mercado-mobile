@@ -9,9 +9,15 @@ import {
   MsgBox,
   PageLogo,
   PageTitle,
+  SignUpText,
+  SignUpView,
   StyledContainer,
   StyledFormArea,
+  StyledScrollView,
   SubTitle,
+  TextLink,
+  TextLinkContent,
+  TopContainer,
 } from './styles';
 
 import { CustomInputDefault } from '../../components/customInputs/CustomInputDefault';
@@ -68,42 +74,51 @@ export const SignIn = () => {
 
   return (
     <StyledContainer>
-      <InnerContainer>
-        <PageLogo source={Logo} resizeMode={'contain'} />
-        <PageTitle>Mercado Campos</PageTitle>
-        <SubTitle>Login</SubTitle>
-
-        <StyledFormArea>
-          <CustomInputDefault
-            control={control}
-            name={'email'}
-            placeholder={'exemplo@exemplo.com'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'user'}
-            label={'Email *'}
-            textContentType={'emailAddress'}
-            keyboardType={'email-address'}
-          />
-          <CustomInputDefault
-            control={control}
-            name={'password'}
-            placeholder={'********'}
-            placeholderTextColor={theme.colors.darkLight}
-            leftIcon={'lock'}
-            label={'Senha *'}
-            autoCapitalize={'none'}
-            isPassword
-          />
-          <MsgBox>...</MsgBox>
-          <LoginScrenButton onPress={handleSubmit(onSignInPressed)}>
-            Entrar
-          </LoginScrenButton>
-          <Line />
-          <LoginScrenButton onPress={onSignUpPress}>
-            Criar conta
-          </LoginScrenButton>
-        </StyledFormArea>
-      </InnerContainer>
+      <StyledScrollView>
+        <InnerContainer>
+          <TopContainer>
+            <PageLogo source={Logo} resizeMode={'contain'} />
+            <PageTitle>Mercado Campos</PageTitle>
+            <SubTitle>Login</SubTitle>
+          </TopContainer>
+          <StyledFormArea>
+            <CustomInputDefault
+              control={control}
+              name={'email'}
+              placeholder={'exemplo@exemplo.com'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'user'}
+              label={'Email *'}
+              textContentType={'emailAddress'}
+              keyboardType={'email-address'}
+            />
+            <CustomInputDefault
+              control={control}
+              name={'password'}
+              placeholder={'********'}
+              placeholderTextColor={theme.colors.darkLight}
+              leftIcon={'lock'}
+              label={'Senha *'}
+              autoCapitalize={'none'}
+              isPassword
+            />
+            <MsgBox>...</MsgBox>
+            <LoginScrenButton onPress={handleSubmit(onSignInPressed)}>
+              Entrar
+            </LoginScrenButton>
+            <Line />
+            <LoginScrenButton onPress={onSignUpPress}>
+              Criar conta
+            </LoginScrenButton>
+            <SignUpView>
+              <SignUpText>Não tem conta? </SignUpText>
+              <TextLink onPress={onSignUpPress} activeOpacity={0.7}>
+                <TextLinkContent>Crie sua conta aqui!</TextLinkContent>
+              </TextLink>
+            </SignUpView>
+          </StyledFormArea>
+        </InnerContainer>
+      </StyledScrollView>
     </StyledContainer>
   );
 };
