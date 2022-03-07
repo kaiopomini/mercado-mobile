@@ -1,10 +1,10 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {Home} from '../screens/Home';
-import {Producs} from '../screens/Producs';
+import { Home } from '../screens/Home';
+import { Producs } from '../screens/Producs';
 
-const {Navigator, Screen} = createBottomTabNavigator();
+const { Navigator, Screen } = createBottomTabNavigator();
 
 export function AuthRoutes() {
   return (

@@ -1,5 +1,5 @@
-import React, {createContext, useContext, useState, ReactNode} from 'react';
-import {api} from '../services/api';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { api } from '../services/api';
 
 type User = {
   id: number;
@@ -22,18 +22,18 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-function AuthProvider({children}: AuthProviderProps) {
+function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
   const [loading, setLoading] = useState(false);
 
   async function signIn(email: string, password: string) {
     try {
       setLoading(true);
-      const {data} = await api.post('tokens', {
+      const { data } = await api.post('tokens', {
         email: email,
         password: password,
       });
-      const {token} = data;
+      const { token } = data;
       if (data.type === 'success') {
         api.defaults.headers.common.Authorization = `Bearer ${token}`;
         const userInfo = await api.get('users/me');
@@ -55,7 +55,7 @@ function AuthProvider({children}: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{user, signIn, signOut, loading}}>
+    <AuthContext.Provider value={{ user, signIn, signOut, loading }}>
       {children}
     </AuthContext.Provider>
   );
@@ -67,4 +67,4 @@ function useAuth() {
   return context;
 }
 
-export {AuthProvider, useAuth};
+export { AuthProvider, useAuth };
