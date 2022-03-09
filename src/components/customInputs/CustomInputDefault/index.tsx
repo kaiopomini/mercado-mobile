@@ -65,7 +65,7 @@ export const CustomInputDefault = ({
           {isPassword && (
             <RightIcon onPress={handleShowPassword} activeOpacity={0.7}>
               <Ionicicons
-                name={hidePassword ? 'md-eye-off' : 'md-eye'}
+                name={hidePassword ? 'md-eye' : 'md-eye-off'}
                 size={30}
                 color={theme.colors.darkLight}
               />

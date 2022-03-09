@@ -1,12 +1,16 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { FullHeader } from '../../components/headers/FullHeader';
+import { Highlights } from '../../components/Highlights';
 
-import { BaseView } from './styles';
+import { BaseView, StyledScrollView } from './styles';
 
 export const Home = () => {
   return (
     <BaseView>
-      <Text>HOME</Text>
+      <StyledScrollView>
+        <FullHeader />
+        <Highlights />
+      </StyledScrollView>
     </BaseView>
   );
 };

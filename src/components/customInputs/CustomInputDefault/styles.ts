@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { theme } from '../../../global/styles/theme';
 
@@ -6,7 +6,7 @@ interface ITypeProps {
   error: boolean;
 }
 
-export const StyledTextInput = styled(TextInput)`
+export const StyledTextInput = styled.TextInput`
   background-color: ${theme.colors.secondary};
   padding: 16px;
   padding-left: 52px;
