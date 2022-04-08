@@ -1,14 +1,12 @@
-import { View, Image } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { theme } from '../../../global/styles/theme';
 
-export const StyledContainer = styled(View)`
+export const StyledContainer = styled.View`
   background-color: ${theme.colors.secondary};
 `;
 
-export const CardImage = styled(Image)`
+export const CardImage = styled.Image`
   width: 100%;
-  height: 200px;
+  height: 150px;
   border-radius: 16px;
 `;
-

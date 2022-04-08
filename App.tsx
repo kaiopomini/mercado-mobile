@@ -1,16 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
+import { setCustomText } from 'react-native-global-props';
 import { AuthProvider } from './src/hooks/auth';
 import { Routes } from './src/routes';
+
+const customTextProps = {
+  style: {
+    color: 'black',
+    fontFamily: 'Roboto',
+  },
+};
+
+setCustomText(customTextProps);
 
 const App = () => {
   return (
