@@ -26,6 +26,7 @@ import Logo from '../../assets/img/logo-blue.png';
 import { theme } from '../../global/styles/theme';
 import { LoginScrenButton } from '../../components/customButtons/LoginScreenButton';
 import { useNavigation } from '@react-navigation/native';
+import { View } from 'react-native';
 
 export const SignIn = () => {
   const navigation = useNavigation();
@@ -88,7 +89,7 @@ export const SignIn = () => {
               placeholder={'exemplo@exemplo.com'}
               placeholderTextColor={theme.colors.darkLight}
               leftIcon={'user'}
-              label={'Email *'}
+              label={'Email'}
               textContentType={'emailAddress'}
               keyboardType={'email-address'}
             />
@@ -98,7 +99,7 @@ export const SignIn = () => {
               placeholder={'********'}
               placeholderTextColor={theme.colors.darkLight}
               leftIcon={'lock'}
-              label={'Senha *'}
+              label={'Senha'}
               autoCapitalize={'none'}
               isPassword
             />
@@ -106,6 +107,7 @@ export const SignIn = () => {
             <LoginScrenButton onPress={handleSubmit(onSignInPressed)}>
               Entrar
             </LoginScrenButton>
+            {/* <View style={{paddingVertical: 8}}/> */}
             <Line />
             <LoginScrenButton onPress={onSignUpPress}>
               Criar conta

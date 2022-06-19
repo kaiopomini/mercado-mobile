@@ -43,7 +43,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         });
       }
     } catch (error) {
-      setLoading(false);
       throw new Error(error as any);
     } finally {
       setLoading(false);

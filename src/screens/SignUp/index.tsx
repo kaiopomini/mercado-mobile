@@ -23,6 +23,7 @@ import { theme } from '../../global/styles/theme';
 import { LoginScrenButton } from '../../components/customButtons/LoginScreenButton';
 import { useNavigation } from '@react-navigation/native';
 import { CustomInputMasked } from '../../components/customInputs/CustomInputMasked';
+import { FlatList } from 'react-native-gesture-handler';
 
 export const SignUp = () => {
   const navigation = useNavigation();
@@ -84,7 +85,7 @@ export const SignUp = () => {
 
   return (
     <StyledContainer>
-      <StyledScrollView>
+      <StyledScrollView bounces={false}>
         <InnerContainer>
           <PageTitle>Mercado Campos</PageTitle>
           <SubTitle>Cadastro</SubTitle>
