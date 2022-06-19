@@ -19,54 +19,55 @@ import {
   TextLinkContent,
   TopContainer,
 } from './styles';
-
+import { useAuth } from '../../hooks/auth';
 import { CustomInputDefault } from '../../components/customInputs/CustomInputDefault';
 
 import Logo from '../../assets/img/logo-blue.png';
 import { theme } from '../../global/styles/theme';
 import { LoginScrenButton } from '../../components/customButtons/LoginScreenButton';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
+import { Alert } from 'react-native';
+
+type ILoginProps = {
+  email: string;
+  password: string;
+};
 
 export const SignIn = () => {
   const navigation = useNavigation();
+  const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  // const initialValues: ILoginProps = {
+  //   email: 'teste@teste.com',
+  //   password: 'Mudar@123',
+  // };
 
   const schema = Yup.object().shape({
     email: Yup.string()
       .required('Email é obrigatório')
       .email('Informe um email válido'),
-    password: Yup.string()
-      .required('Senha é obrigatória')
-      .matches(/^[^\s]+(\S+[^\s]+)*$/, 'A senha não deve conter espaços')
-      .matches(/[A-Z]/, 'A senha deve ter pelomenos 1 letra maiúscula')
-      .matches(/[a-z]/, 'A senha deve ter pelomenos 1 letra minúscula')
-      .matches(/[0-9]/, 'A senha deve ter pelomenos 1 número')
-      .matches(
-        /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~´|']/,
-        'A senha deve ter pelomenos 1 caractere especial',
-      )
-      .min(8, 'A senha deve ter pelomenos 8 caracteres'),
+    password: Yup.string().required('Senha é obrigatória'),
   });
 
   const { control, handleSubmit } = useForm({
+    mode: 'onSubmit',
+    // defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
 
-  const onSignInPressed = async (data: any) => {
+  const onSignInPressed = async (data: ILoginProps) => {
+    console.log('data', data);
     if (loading) {
       return;
     }
+    setLoading(true);
 
-    // setLoading(true);
-    // try {
-    //   const response = await Auth.signIn(data.username, data.password);
-    //   console.log(response);
-    // } catch (e) {
-    //   Alert.alert('Oops', e.message);
-    // }
-    // setLoading(false);
-    console.log(data);
+    const response = await signIn(data.email, data.password);
+    if (!response.success) {
+      Alert.alert(response.message);
+    }
+    setLoading(false);
   };
 
   const onSignUpPress = () => {
@@ -104,7 +105,7 @@ export const SignIn = () => {
               isPassword
             />
             <MsgBox>...</MsgBox>
-            <LoginScrenButton onPress={handleSubmit(onSignInPressed)}>
+            <LoginScrenButton onPress={handleSubmit(() => onSignInPressed)}>
               Entrar
             </LoginScrenButton>
             {/* <View style={{paddingVertical: 8}}/> */}
