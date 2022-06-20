@@ -23,11 +23,22 @@ import { theme } from '../../global/styles/theme';
 import { LoginScrenButton } from '../../components/customButtons/LoginScreenButton';
 import { useNavigation } from '@react-navigation/native';
 import { CustomInputMasked } from '../../components/customInputs/CustomInputMasked';
-import { FlatList } from 'react-native-gesture-handler';
+import {
+  IRegisterProps,
+  registerService,
+} from '../../services/registerService';
+import { useAuth } from '../../hooks/auth';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text } from 'react-native';
 
 export const SignUp = () => {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
+  const [loadingRegister, setLoadingRegister] = useState(false);
+  const { signIn, loading } = useAuth();
+
+  const isDisabled = (): boolean => {
+    return loading || loadingRegister;
+  };
 
   const schema = Yup.object().shape({
     surname: Yup.string()
@@ -59,24 +70,21 @@ export const SignUp = () => {
       .max(11, 'Telefona inválido'),
   });
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<IRegisterProps>({
     resolver: yupResolver(schema),
   });
 
-  const onSignInPressed = async (data: any) => {
-    if (loading) {
-      return;
+  const onSignInPressed = async (data: IRegisterProps) => {
+    setLoadingRegister(true);
+    const regirterRes = await registerService(data);
+    if (regirterRes?.success) {
+      const authRes = await signIn(data.email, data.password);
+      if (!authRes.success) {
+        setLoadingRegister(false);
+      }
+    } else {
+      setLoadingRegister(false);
     }
-
-    // setLoading(true);
-    // try {
-    //   const response = await Auth.signIn(data.username, data.password);
-    //   console.log(response);
-    // } catch (e) {
-    //   Alert.alert('Oops', e.message);
-    // }
-    // setLoading(false);
-    console.log(data);
   };
 
   const handleBack = () => {
@@ -151,12 +159,17 @@ export const SignUp = () => {
               isPassword
             />
             <MsgBox>...</MsgBox>
-            <LoginScrenButton onPress={handleSubmit(onSignInPressed)}>
+            <LoginScrenButton
+              onPress={handleSubmit(onSignInPressed)}
+              disabled={isDisabled()}>
               Cadastrar
             </LoginScrenButton>
             <SignInView>
               <SignInText>Já tem conta? </SignInText>
-              <TextLink onPress={handleBack} activeOpacity={0.7}>
+              <TextLink
+                onPress={handleBack}
+                activeOpacity={0.7}
+                disabled={true}>
                 <TextLinkContent>Clique aqui pra entrar!</TextLinkContent>
               </TextLink>
             </SignInView>

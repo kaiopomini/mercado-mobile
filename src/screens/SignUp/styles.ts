@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { theme } from '../../global/styles/theme';
 
 export const StyledContainer = styled(SafeAreaView)`
@@ -66,7 +66,7 @@ export const SignInText = styled(Text)`
   font-size: 15px;
 `;
 
-export const TextLink = styled(TouchableOpacity)`
+export const TextLink = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;

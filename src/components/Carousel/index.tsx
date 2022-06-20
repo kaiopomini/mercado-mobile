@@ -75,7 +75,6 @@ export const Carousel = () => {
       });
     }
   };
-
   useFocusEffect(
     useCallback(() => {
       const interval: NodeJS.Timer = setInterval(

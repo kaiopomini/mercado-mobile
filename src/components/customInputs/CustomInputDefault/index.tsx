@@ -12,7 +12,7 @@ import {
 } from './styles';
 
 interface Props extends TextInputProps {
-  control: Control;
+  control: Control<any, any>;
   name: string;
   label?: string;
   isPassword?: boolean;
