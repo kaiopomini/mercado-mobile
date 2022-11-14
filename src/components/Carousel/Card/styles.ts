@@ -7,6 +7,7 @@ export const StyledContainer = styled.View`
 
 export const CardImage = styled.Image`
   width: 100%;
-  height: 150px;
+  height: undefined;
+  aspect-ratio: ${21 / 9};
   border-radius: 16px;
 `;

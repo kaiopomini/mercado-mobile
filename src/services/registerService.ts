@@ -73,7 +73,6 @@ export async function registerService(
     }
     return null;
   } catch (error) {
-    console.log(error.response.data);
     return null;
   }
 }
